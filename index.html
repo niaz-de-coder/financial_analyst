@@ -1,1098 +1,425 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Niaz Empire Business Consultancy</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['Cormorant Garamond', 'serif'],
-            body: ['DM Sans', 'sans-serif'],
-          },
-          colors: {
-            cream: '#FAF8F4',
-            sand: '#EDE9E0',
-            gold: '#B8964A',
-            'gold-light': '#D4AE6A',
-            charcoal: '#1C1C1C',
-            muted: '#6B6560',
-            border: '#E2DDD6',
-          },
-          letterSpacing: {
-            widest2: '0.25em',
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    :root {
-      --gold: #B8964A;
-      --charcoal: #1C1C1C;
-      --cream: #FAF8F4;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { background: var(--cream); color: var(--charcoal); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #FAF8F4; }
-    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
-
-    /* ── Nav ── */
-    #navbar {
-      transition: background 0.4s ease, box-shadow 0.4s ease;
-    }
-    #navbar.scrolled {
-      background: rgba(250,248,244,0.95) !important;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 1px 0 #E2DDD6;
-    }
-
-    /* ── Logo mark ── */
-    .logo-mark {
-      width: 36px; height: 36px;
-      border: 1.5px solid var(--gold);
-      transform: rotate(45deg);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .logo-mark span {
-      transform: rotate(-45deg);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gold);
-      letter-spacing: 0;
-    }
-
-    /* ── Nav link underline ── */
-    .nav-link { position: relative; }
-    .nav-link::after {
-      content: '';
-      position: absolute; bottom: -2px; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold);
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after { width: 100%; }
-
-    /* ── Gold button ── */
-    .btn-gold {
-      background: var(--gold);
-      color: #fff;
-      padding: 12px 28px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.3s ease;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn-gold::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: #1C1C1C;
-      transform: translateX(-100%);
-      transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
-    }
-    .btn-gold:hover::before { transform: translateX(0); }
-    .btn-gold span { position: relative; z-index: 1; }
-
-    .btn-outline {
-      border: 1.5px solid var(--charcoal);
-      color: var(--charcoal);
-      padding: 12px 28px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      background: transparent;
-      transition: color 0.3s ease;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn-outline::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: var(--charcoal);
-      transform: translateX(-100%);
-      transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
-    }
-    .btn-outline:hover { color: #fff; }
-    .btn-outline:hover::before { transform: translateX(0); }
-    .btn-outline span { position: relative; z-index: 1; }
-
-    /* ── Hero ── */
-    #hero { min-height: 100vh; position: relative; }
-    .hero-line {
-      overflow: hidden;
-    }
-    .hero-line-inner {
-      transform: translateY(100%);
-      animation: lineUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
-    }
-    @keyframes lineUp {
-      to { transform: translateY(0); }
-    }
-    .hero-line:nth-child(1) .hero-line-inner { animation-delay: 0.2s; }
-    .hero-line:nth-child(2) .hero-line-inner { animation-delay: 0.35s; }
-    .hero-line:nth-child(3) .hero-line-inner { animation-delay: 0.5s; }
-
-    .hero-sub { opacity: 0; animation: fadeUp 0.8s 0.8s ease forwards; }
-    .hero-cta  { opacity: 0; animation: fadeUp 0.8s 1.0s ease forwards; }
-    .hero-stat { opacity: 0; animation: fadeUp 0.8s 1.2s ease forwards; }
-
-    @keyframes fadeUp {
-      from { opacity:0; transform: translateY(20px); }
-      to   { opacity:1; transform: translateY(0); }
-    }
-
-    /* Decorative vertical line */
-    .v-line {
-      width: 1px;
-      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-    }
-
-    /* ── Marquee ── */
-    .marquee-track {
-      display: flex;
-      width: max-content;
-      animation: marquee 28s linear infinite;
-    }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ── Section labels ── */
-    .section-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    /* ── Card hover ── */
-    .case-card {
-      border: 1px solid #E2DDD6;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-      background: #fff;
-    }
-    .case-card:hover {
-      box-shadow: 0 20px 60px rgba(0,0,0,0.07);
-      transform: translateY(-4px);
-    }
-    .case-card .tag {
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    /* ── Trusted logos ── */
-    .trust-logo {
-      opacity: 0.45;
-      transition: opacity 0.3s ease;
-      filter: grayscale(1);
-    }
-    .trust-logo:hover { opacity: 1; filter: none; }
-
-    /* ── Booking form ── */
-    .form-input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid #E2DDD6;
-      padding: 12px 0;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      color: var(--charcoal);
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-    .form-input:focus { border-color: var(--gold); }
-    .form-input::placeholder { color: #B0AAA4; font-size: 14px; }
-
-    /* ── Social icons ── */
-    .social-btn {
-      width: 48px; height: 48px;
-      border: 1px solid #E2DDD6;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.3s ease, border-color 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .social-btn:hover { background: var(--gold); border-color: var(--gold); }
-    .social-btn:hover svg { stroke: #fff; fill: none; }
-    .social-btn svg { transition: stroke 0.3s ease; }
-
-    /* ── Number counter ── */
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 56px;
-      font-weight: 300;
-      line-height: 1;
-      color: var(--charcoal);
-    }
-
-    /* ── Diagonal divider ── */
-    .diagonal-bg {
-      clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
-    }
-
-    /* ── Reveal on scroll ── */
-    .reveal { opacity: 0; transform: translateY(32px); }
-    .reveal.visible { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal-left { opacity: 0; transform: translateX(-32px); }
-    .reveal-left.visible { opacity: 1; transform: translateX(0); transition: opacity 0.7s ease, transform 0.7s ease; }
-
-    /* ── Mobile menu ── */
-    #mobile-menu { transition: max-height 0.4s ease, opacity 0.3s ease; max-height: 0; opacity: 0; overflow: hidden; }
-    #mobile-menu.open { max-height: 400px; opacity: 1; }
-
-    /* Gold accent line */
-    .gold-line { width: 40px; height: 2px; background: var(--gold); }
-
-    /* ── Testimonial ── */
-    .testimonial-card {
-      border-left: 2px solid var(--gold);
-      padding-left: 24px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niaz Empire Business Consultancy</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter for a clean, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0f172a', // slate-900
+                        secondary: '#475569', // slate-600
+                        accent: '#2563eb', // blue-600
+                        light: '#f8fafc', // slate-50
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for things Tailwind is too verbose for */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
 </head>
-<body class="bg-cream">
+<body class="bg-light text-primary flex flex-col min-h-screen relative">
 
-<!-- ═══════════════════════════════════
-     NAVBAR
-═══════════════════════════════════ -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
-  <div class="max-w-7xl mx-auto px-6 lg:px-12">
-    <div class="flex items-center justify-between h-20">
-
-      <!-- Logo -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="logo-mark"><span>N</span></div>
-        <div class="leading-tight">
-          <div class="font-display text-base font-semibold tracking-wide text-charcoal">Niaz Empire</div>
-          <div class="text-[10px] tracking-widest2 uppercase text-muted font-body">Business Consultancy</div>
-        </div>
-      </a>
-
-      <!-- Desktop Nav -->
-      <div class="hidden lg:flex items-center gap-10">
-        <a href="#about"    class="nav-link text-sm text-charcoal font-body tracking-wide">About</a>
-        <a href="#cases"    class="nav-link text-sm text-charcoal font-body tracking-wide">Case Studies</a>
-        <a href="#trusted"  class="nav-link text-sm text-charcoal font-body tracking-wide">Clients</a>
-        <a href="#contact"  class="nav-link text-sm text-charcoal font-body tracking-wide">Contact</a>
-        <a href="#booking"  class="btn-gold text-xs tracking-widest"><span>Book a Call</span></a>
-      </div>
-
-      <!-- Hamburger -->
-      <button id="hamburger" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
-        <span id="h1" class="block w-6 h-px bg-charcoal transition-all duration-300"></span>
-        <span id="h2" class="block w-4 h-px bg-charcoal transition-all duration-300"></span>
-        <span id="h3" class="block w-6 h-px bg-charcoal transition-all duration-300"></span>
-      </button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="lg:hidden bg-cream border-t border-border">
-      <div class="flex flex-col py-6 gap-5 px-2">
-        <a href="#about"   class="text-sm text-charcoal font-body tracking-wide" onclick="closeMobile()">About</a>
-        <a href="#cases"   class="text-sm text-charcoal font-body tracking-wide" onclick="closeMobile()">Case Studies</a>
-        <a href="#trusted" class="text-sm text-charcoal font-body tracking-wide" onclick="closeMobile()">Clients</a>
-        <a href="#contact" class="text-sm text-charcoal font-body tracking-wide" onclick="closeMobile()">Contact</a>
-        <a href="#booking" class="btn-gold text-xs tracking-widest w-fit" onclick="closeMobile()"><span>Book a Call</span></a>
-      </div>
-    </div>
-  </div>
-</nav>
-
-
-<!-- ═══════════════════════════════════
-     HERO
-═══════════════════════════════════ -->
-<section id="hero" class="relative flex items-center min-h-screen bg-cream overflow-hidden">
-
-  <!-- Background texture -->
-  <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(184,150,74,0.07) 0%, transparent 70%);"></div>
-
-  <!-- Vertical decorative lines -->
-  <div class="absolute left-1/2 top-0 bottom-0 v-line opacity-30"></div>
-  <div class="absolute right-24 top-0 bottom-0 v-line opacity-15 hidden lg:block"></div>
-
-  <!-- Large BG text -->
-  <div class="absolute right-0 bottom-12 font-display text-[160px] lg:text-[220px] font-300 text-charcoal opacity-[0.03] leading-none select-none pointer-events-none whitespace-nowrap">
-    Empire
-  </div>
-
-  <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full pt-32 pb-20">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
-
-      <!-- Left: Text -->
-      <div>
-        <div class="hero-line"><div class="hero-line-inner section-label mb-8">Business Consultancy · Est. 2018</div></div>
-
-        <h1 class="font-display font-light leading-[1.05]">
-          <div class="hero-line"><div class="hero-line-inner text-5xl lg:text-7xl text-charcoal">Elevate Your</div></div>
-          <div class="hero-line"><div class="hero-line-inner text-5xl lg:text-7xl text-charcoal italic" style="color: var(--gold);">Business</div></div>
-          <div class="hero-line"><div class="hero-line-inner text-5xl lg:text-7xl text-charcoal">to Empire.</div></div>
-        </h1>
-
-        <p class="hero-sub font-body text-muted text-base leading-relaxed mt-8 max-w-md">
-          Strategic advisory that transforms ambitious companies into market leaders. We bring clarity, precision, and decades of expertise to every engagement.
-        </p>
-
-        <div class="hero-cta flex flex-wrap gap-4 mt-10">
-          <a href="#booking" class="btn-gold"><span>Schedule Consultation</span></a>
-          <a href="#cases"   class="btn-outline"><span>View Case Studies</span></a>
-        </div>
-      </div>
-
-      <!-- Right: Stats -->
-      <div class="hero-stat">
-        <div class="grid grid-cols-2 gap-px bg-border">
-          <div class="bg-cream p-8">
-            <div class="stat-num counter" data-target="140">0</div>
-            <div class="text-[11px] tracking-widest uppercase text-muted font-body mt-2">Clients Served</div>
-          </div>
-          <div class="bg-cream p-8">
-            <div class="stat-num"><span class="counter" data-target="7">0</span>+</div>
-            <div class="text-[11px] tracking-widest uppercase text-muted font-body mt-2">Years of Excellence</div>
-          </div>
-          <div class="bg-cream p-8">
-            <div class="stat-num"><span class="counter" data-target="92">0</span>%</div>
-            <div class="text-[11px] tracking-widest uppercase text-muted font-body mt-2">Client Retention</div>
-          </div>
-          <div class="bg-cream p-8">
-            <div class="stat-num">$<span class="counter" data-target="80">0</span>M+</div>
-            <div class="text-[11px] tracking-widest uppercase text-muted font-body mt-2">Revenue Generated</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Scroll hint -->
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-      <div class="text-[10px] tracking-widest uppercase font-body text-muted">Scroll</div>
-      <div class="w-px h-10 bg-gold animate-pulse"></div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════
-     MARQUEE STRIP
-═══════════════════════════════════ -->
-<div class="bg-charcoal py-4 overflow-hidden">
-  <div class="marquee-track">
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Strategy Consulting</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Market Expansion</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Financial Advisory</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Operations Excellence</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Leadership Development</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Digital Transformation</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <!-- repeat -->
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Strategy Consulting</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Market Expansion</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Financial Advisory</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Operations Excellence</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Leadership Development</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-gold opacity-80">Digital Transformation</span>
-    <span class="text-[11px] tracking-widest uppercase font-body px-8 text-white opacity-30">·</span>
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════
-     ABOUT
-═══════════════════════════════════ -->
-<section id="about" class="py-28 lg:py-40 bg-cream">
-  <div class="max-w-7xl mx-auto px-6 lg:px-12">
-    <div class="grid lg:grid-cols-12 gap-16 items-start">
-
-      <!-- Left label column -->
-      <div class="lg:col-span-4">
-        <div class="reveal-left">
-          <div class="section-label mb-4">About the Firm</div>
-          <div class="gold-line mb-8"></div>
-          <h2 class="font-display font-light text-4xl lg:text-5xl text-charcoal leading-tight">
-            Built on<br/><em class="font-light" style="color:var(--gold)">Expertise,</em><br/>Driven by<br/>Results.
-          </h2>
-        </div>
-      </div>
-
-      <!-- Right content -->
-      <div class="lg:col-span-8">
-        <div class="grid md:grid-cols-2 gap-12">
-
-          <div class="reveal">
-            <p class="font-body text-muted text-base leading-relaxed mb-6">
-              Niaz Empire Business Consultancy was founded with a singular mission: to give ambitious enterprises the strategic edge they need to dominate their markets. We are not a typical consultancy — we are embedded partners who share your risks and celebrate your wins.
-            </p>
-            <p class="font-body text-muted text-base leading-relaxed">
-              Our advisors bring hands-on experience from Fortune 500 boardrooms, emerging market launches, and high-stakes turnarounds. Every recommendation we make is battle-tested.
-            </p>
-          </div>
-
-          <div class="reveal" style="transition-delay: 0.15s">
-            <!-- Services list -->
-            <div class="space-y-5">
-              <div class="flex items-start gap-4 pb-5 border-b border-border">
-                <div class="w-8 h-8 border border-gold flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <!-- Fixed Navigation -->
+    <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 border-b border-transparent py-4">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#home" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-primary text-white flex items-center justify-center rounded-lg font-bold text-xl group-hover:bg-accent transition-colors">
+                    N
                 </div>
-                <div>
-                  <div class="font-body font-medium text-charcoal text-sm mb-1">Strategic Planning</div>
-                  <div class="font-body text-muted text-sm">Long-range roadmaps aligned with market realities.</div>
+                <span class="font-bold text-lg tracking-tight">Niaz Empire</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#home" class="text-secondary hover:text-primary transition-colors">Home</a>
+                <a href="#about" class="text-secondary hover:text-primary transition-colors">About</a>
+                <a href="#case-studies" class="text-secondary hover:text-primary transition-colors">Case Studies</a>
+                <a href="#contact" class="text-secondary hover:text-primary transition-colors">Contact</a>
+                <a href="#booking" class="bg-primary text-white px-5 py-2.5 rounded-full hover:bg-accent transition-colors shadow-sm">
+                    Book Consultation
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-primary p-2 focus:outline-none">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-lg py-4 px-6 flex-col space-y-4 md:hidden">
+            <a href="#home" class="text-secondary hover:text-primary transition-colors font-medium mobile-link">Home</a>
+            <a href="#about" class="text-secondary hover:text-primary transition-colors font-medium mobile-link">About</a>
+            <a href="#case-studies" class="text-secondary hover:text-primary transition-colors font-medium mobile-link">Case Studies</a>
+            <a href="#contact" class="text-secondary hover:text-primary transition-colors font-medium mobile-link">Contact</a>
+            <a href="#booking" class="bg-primary text-white px-5 py-3 rounded-xl text-center hover:bg-accent transition-colors mobile-link">
+                Book Consultation
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex-grow flex items-center">
+        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-sm font-medium text-secondary">
+                    <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                    Transforming Businesses Globally
                 </div>
-              </div>
-              <div class="flex items-start gap-4 pb-5 border-b border-border">
-                <div class="w-8 h-8 border border-gold flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <h1 class="text-5xl lg:text-7xl font-bold tracking-tighter leading-[1.1]">
+                    Architects of your <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Empire.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-secondary max-w-xl leading-relaxed">
+                    Niaz Empire Business Consultancy provides strategic insights and actionable frameworks to scale your operations, optimize revenue, and dominate your market.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#booking" class="bg-primary text-white px-8 py-4 rounded-full font-medium hover:bg-accent transition-colors shadow-lg shadow-slate-200 flex items-center justify-center gap-2 group">
+                        Start Your Journey
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#case-studies" class="px-8 py-4 rounded-full font-medium text-primary bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors flex items-center justify-center">
+                        View Our Work
+                    </a>
                 </div>
-                <div>
-                  <div class="font-body font-medium text-charcoal text-sm mb-1">Financial Advisory</div>
-                  <div class="font-body text-muted text-sm">Structuring, fundraising, and profitability engineering.</div>
+            </div>
+            
+            <div class="relative hidden lg:block">
+                <!-- Abstract minimalist composition -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-slate-100 to-white rounded-[2.5rem] transform rotate-3 scale-105 border border-slate-100"></div>
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Consultancy Team" class="relative z-10 rounded-[2.5rem] shadow-2xl object-cover h-[600px] w-full border border-white/50">
+                
+                <!-- Floating stat card -->
+                <div class="absolute -bottom-6 -left-6 z-20 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold">250%</p>
+                        <p class="text-sm text-secondary font-medium">Average ROI</p>
+                    </div>
                 </div>
-              </div>
-              <div class="flex items-start gap-4 pb-5 border-b border-border">
-                <div class="w-8 h-8 border border-gold flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Users Section -->
+    <section class="py-12 border-y border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-center text-sm font-semibold text-slate-400 uppercase tracking-wider mb-8">Trusted by visionary enterprises</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <!-- Placeholder Logos using simple typography for minimalism -->
+                <div class="text-2xl font-black tracking-tighter text-slate-800">AcmeCorp.</div>
+                <div class="text-xl font-bold font-serif italic text-slate-800">Globex</div>
+                <div class="text-2xl font-bold uppercase tracking-widest text-slate-800">Initech</div>
+                <div class="text-xl font-medium tracking-tight text-slate-800">Umbrella Corp</div>
+                <div class="text-2xl font-bold text-slate-800 flex items-center gap-1"><i data-lucide="hexagon" class="w-6 h-6"></i> Soylent</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Strategic Planning" class="rounded-3xl shadow-lg object-cover h-[500px] w-full">
+            </div>
+            <div class="space-y-6">
+                <h2 class="text-sm font-semibold text-accent uppercase tracking-wider">About Niaz Empire</h2>
+                <h3 class="text-3xl md:text-4xl font-bold tracking-tight">We don't just advise. We build alongside you.</h3>
+                <p class="text-secondary leading-relaxed">
+                    Founded on the principle that true growth requires both visionary strategy and meticulous execution, Niaz Empire has spent the last decade turning ambitious startups into industry stalwarts and helping established firms navigate digital transformation.
+                </p>
+                <p class="text-secondary leading-relaxed">
+                    Our approach is minimalist: strip away the noise, identify the core levers of growth, and execute with precision. No fluff, just results.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-6 pt-6">
+                    <div class="border-l-2 border-slate-200 pl-4">
+                        <p class="text-3xl font-bold text-primary">10+</p>
+                        <p class="text-sm text-secondary mt-1">Years Experience</p>
+                    </div>
+                    <div class="border-l-2 border-slate-200 pl-4">
+                        <p class="text-3xl font-bold text-primary">$2B+</p>
+                        <p class="text-sm text-secondary mt-1">Client Revenue Generated</p>
+                    </div>
                 </div>
-                <div>
-                  <div class="font-body font-medium text-charcoal text-sm mb-1">Market Expansion</div>
-                  <div class="font-body text-muted text-sm">Penetrating new geographies and customer segments.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="case-studies" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-sm font-semibold text-accent uppercase tracking-wider mb-2">Our Work</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold tracking-tight">Proven methodologies.<br>Tangible results.</h3>
                 </div>
-              </div>
-              <div class="flex items-start gap-4">
-                <div class="w-8 h-8 border border-gold flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <a href="#" class="inline-flex items-center gap-2 text-primary font-medium hover:text-accent transition-colors group">
+                    View all projects <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Case Study 1 -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-2xl mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Fintech Scaling" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <p class="text-sm text-secondary mb-2">Fintech • Market Expansion</p>
+                    <h4 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors">Scaling a regional payment processor globally</h4>
+                    <p class="text-secondary text-sm line-clamp-2">Developed a phased market entry strategy that resulted in successful expansion into 3 new continents within 18 months.</p>
                 </div>
-                <div>
-                  <div class="font-body font-medium text-charcoal text-sm mb-1">Leadership & Culture</div>
-                  <div class="font-body text-muted text-sm">Building teams that scale with your ambitions.</div>
+
+                <!-- Case Study 2 -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-2xl mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Supply Chain Optimization" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <p class="text-sm text-secondary mb-2">Logistics • Operational Efficiency</p>
+                    <h4 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors">Optimizing global supply chain networks</h4>
+                    <p class="text-secondary text-sm line-clamp-2">Implemented AI-driven forecasting models reducing inventory overhead by 34% while improving delivery times.</p>
                 </div>
-              </div>
+
+                <!-- Case Study 3 -->
+                <div class="group cursor-pointer">
+                    <div class="overflow-hidden rounded-2xl mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Brand Restructuring" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <p class="text-sm text-secondary mb-2">Retail • Digital Transformation</p>
+                    <h4 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors">Legacy retail brand digital turnaround</h4>
+                    <p class="text-secondary text-sm line-clamp-2">Spearheaded a complete digital overhaul, shifting revenue from 90% physical to 60% e-commerce in two years.</p>
+                </div>
             </div>
-          </div>
-
         </div>
+    </section>
 
-        <!-- Testimonial -->
-        <div class="reveal mt-12" style="transition-delay: 0.25s">
-          <div class="testimonial-card">
-            <p class="font-display font-light text-xl text-charcoal italic leading-relaxed mb-4">
-              "Niaz Empire gave us the clarity to triple our revenue in 18 months. Their insight is unlike anything we've encountered from other consultancies."
-            </p>
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 bg-sand rounded-full flex items-center justify-center text-xs font-display font-semibold text-gold">A</div>
-              <div>
-                <div class="text-sm font-medium font-body text-charcoal">Arif Rahman</div>
-                <div class="text-xs text-muted font-body">CEO, Dhaka Ventures Group</div>
-              </div>
+    <!-- Booking Section -->
+    <section id="booking" class="py-24 max-w-7xl mx-auto px-6 relative">
+        <div class="absolute inset-0 bg-slate-900 rounded-[3rem] -z-10 transform scale-[0.98] md:scale-100 hidden md:block"></div>
+        <div class="bg-white rounded-[3rem] md:rounded-[2.5rem] shadow-2xl p-8 md:p-16 border border-slate-100">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+                
+                <div class="lg:col-span-2 space-y-6">
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Ready to build your empire?</h2>
+                    <p class="text-secondary leading-relaxed">
+                        Book a free 30-minute discovery call. We'll discuss your current bottlenecks and explore how our frameworks can accelerate your growth.
+                    </p>
+                    
+                    <div class="space-y-4 pt-6">
+                        <div class="flex items-center gap-4 text-secondary">
+                            <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+                                <i data-lucide="check" class="w-5 h-5 text-accent"></i>
+                            </div>
+                            <span>No obligation strategy session</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-secondary">
+                            <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+                                <i data-lucide="check" class="w-5 h-5 text-accent"></i>
+                            </div>
+                            <span>Customized preliminary roadmap</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3">
+                    <form onsubmit="event.preventDefault(); alert('Booking request submitted. A representative will contact you shortly.');" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="name" class="text-sm font-medium text-primary">Full Name</label>
+                                <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all placeholder:text-slate-400" placeholder="John Doe">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="email" class="text-sm font-medium text-primary">Work Email</label>
+                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all placeholder:text-slate-400" placeholder="john@company.com">
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label for="service" class="text-sm font-medium text-primary">Area of Interest</label>
+                            <select id="service" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all text-primary appearance-none cursor-pointer">
+                                <option value="" disabled selected>Select a consultancy focus...</option>
+                                <option value="strategy">Business Strategy & Scaling</option>
+                                <option value="operations">Operational Efficiency</option>
+                                <option value="digital">Digital Transformation</option>
+                                <option value="financial">Financial Restructuring</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="message" class="text-sm font-medium text-primary">Briefly describe your current challenge</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all placeholder:text-slate-400 resize-none" placeholder="We are looking to scale our operations into..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-primary text-white py-4 rounded-xl font-medium hover:bg-accent transition-colors shadow-md flex items-center justify-center gap-2">
+                            Request Consultation <i data-lucide="calendar" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+
             </div>
-          </div>
         </div>
-      </div>
+    </section>
 
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════
-     CASE STUDIES
-═══════════════════════════════════ -->
-<section id="cases" class="py-28 lg:py-40 bg-sand">
-  <div class="max-w-7xl mx-auto px-6 lg:px-12">
-
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
-      <div class="reveal">
-        <div class="section-label mb-4">Our Work</div>
-        <div class="gold-line mb-6"></div>
-        <h2 class="font-display font-light text-4xl lg:text-5xl text-charcoal leading-tight">
-          Case Studies
-        </h2>
-      </div>
-      <div class="reveal text-muted font-body text-sm max-w-xs leading-relaxed">
-        A selection of engagements that illustrate the depth and breadth of our advisory practice.
-      </div>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- Card 1 -->
-      <div class="case-card reveal p-8" style="transition-delay:0.0s">
-        <div class="tag mb-4">Retail & E-commerce</div>
-        <h3 class="font-display font-light text-2xl text-charcoal mb-3 leading-snug">From Local Brand to Regional Market Leader</h3>
-        <p class="font-body text-muted text-sm leading-relaxed mb-6">Guided a Dhaka-based fashion retailer through digital transformation and regional expansion across 5 countries, resulting in 4× growth in 24 months.</p>
-        <div class="flex justify-between items-end pt-4 border-t border-border">
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">4×</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Revenue Growth</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">24M</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Timeline</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">5</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">New Markets</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="case-card reveal p-8" style="transition-delay:0.1s">
-        <div class="tag mb-4">Manufacturing</div>
-        <h3 class="font-display font-light text-2xl text-charcoal mb-3 leading-snug">Operational Turnaround for Legacy Manufacturer</h3>
-        <p class="font-body text-muted text-sm leading-relaxed mb-6">Redesigned supply chain processes and cost structures for a 30-year-old manufacturing firm, restoring profitability within two quarters.</p>
-        <div class="flex justify-between items-end pt-4 border-t border-border">
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">38%</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Cost Reduction</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">2Q</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">To Profit</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">$12M</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Saved</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="case-card reveal p-8" style="transition-delay:0.2s">
-        <div class="tag mb-4">Financial Services</div>
-        <h3 class="font-display font-light text-2xl text-charcoal mb-3 leading-snug">Series B Fundraise & Investor Positioning</h3>
-        <p class="font-body text-muted text-sm leading-relaxed mb-6">Prepared a fintech startup's narrative, financials, and go-to-market strategy that secured $18M in Series B funding from regional and international investors.</p>
-        <div class="flex justify-between items-end pt-4 border-t border-border">
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">$18M</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Raised</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">9</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Investor Meetings</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">3</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Term Sheets</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="case-card reveal p-8" style="transition-delay:0.3s">
-        <div class="tag mb-4">Healthcare</div>
-        <h3 class="font-display font-light text-2xl text-charcoal mb-3 leading-snug">Scaling a Private Hospital Group Across Divisions</h3>
-        <p class="font-body text-muted text-sm leading-relaxed mb-6">Developed a growth roadmap for a private hospital network, optimizing patient acquisition, operational capacity, and regulatory compliance.</p>
-        <div class="flex justify-between items-end pt-4 border-t border-border">
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">3×</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Patient Volume</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">6</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">New Branches</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">91%</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Satisfaction</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="case-card reveal p-8" style="transition-delay:0.4s">
-        <div class="tag mb-4">Technology</div>
-        <h3 class="font-display font-light text-2xl text-charcoal mb-3 leading-snug">Product-Market Fit for SaaS Platform Launch</h3>
-        <p class="font-body text-muted text-sm leading-relaxed mb-6">Facilitated customer discovery, pricing strategy, and go-to-market execution for a B2B SaaS platform, achieving product-market fit in 6 months.</p>
-        <div class="flex justify-between items-end pt-4 border-t border-border">
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">500+</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Beta Users</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">6M</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Time to PMF</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl font-light text-charcoal">82%</div>
-            <div class="text-[10px] tracking-widest uppercase text-muted font-body">Retention</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 6 — CTA -->
-      <div class="reveal p-8 flex flex-col justify-center items-start border border-dashed border-gold bg-cream" style="transition-delay:0.5s">
-        <div class="section-label mb-4">Your Story Next</div>
-        <h3 class="font-display font-light text-2xl text-charcoal mb-4 leading-snug">Ready to create your success story?</h3>
-        <p class="font-body text-muted text-sm leading-relaxed mb-8">Let's explore how Niaz Empire can help you achieve transformative results.</p>
-        <a href="#booking" class="btn-gold"><span>Start a Conversation</span></a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════
-     TRUSTED BY
-═══════════════════════════════════ -->
-<section id="trusted" class="py-24 bg-cream border-t border-border">
-  <div class="max-w-7xl mx-auto px-6 lg:px-12">
-
-    <div class="text-center mb-16 reveal">
-      <div class="section-label mb-4">Trusted By</div>
-      <h2 class="font-display font-light text-3xl lg:text-4xl text-charcoal">Industry Leaders Who Trust Our Expertise</h2>
-    </div>
-
-    <!-- Logo grid (text-based placeholders) -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center mb-20">
-      <div class="trust-logo reveal flex justify-center" style="transition-delay:0.0s">
-        <div class="font-display font-semibold text-xl text-charcoal opacity-60">AgroVenture</div>
-      </div>
-      <div class="trust-logo reveal flex justify-center" style="transition-delay:0.05s">
-        <div class="font-display font-semibold text-xl text-charcoal opacity-60">MediCore</div>
-      </div>
-      <div class="trust-logo reveal flex justify-center" style="transition-delay:0.1s">
-        <div class="font-display font-semibold text-xl text-charcoal opacity-60">BuildRight</div>
-      </div>
-      <div class="trust-logo reveal flex justify-center" style="transition-delay:0.15s">
-        <div class="font-display font-semibold text-xl text-charcoal opacity-60">NexaTrade</div>
-      </div>
-      <div class="trust-logo reveal flex justify-center" style="transition-delay:0.2s">
-        <div class="font-display font-semibold text-xl text-charcoal opacity-60">AlphaFinance</div>
-      </div>
-      <div class="trust-logo reveal flex justify-center" style="transition-delay:0.25s">
-        <div class="font-display font-semibold text-xl text-charcoal opacity-60">UrbanSpace</div>
-      </div>
-    </div>
-
-    <!-- Testimonials row -->
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="reveal" style="transition-delay:0.0s">
-        <div class="testimonial-card">
-          <p class="font-display font-light text-lg text-charcoal italic leading-relaxed mb-5">"Their strategic framework didn't just fix our problems — it fundamentally rewired how we think about growth."</p>
-          <div class="text-sm font-medium font-body text-charcoal">Sarah Islam</div>
-          <div class="text-xs text-muted font-body">Founder, NexaTrade</div>
-        </div>
-      </div>
-      <div class="reveal" style="transition-delay:0.1s">
-        <div class="testimonial-card">
-          <p class="font-display font-light text-lg text-charcoal italic leading-relaxed mb-5">"In six months, Niaz Empire helped us do what we couldn't do in six years. Extraordinary team."</p>
-          <div class="text-sm font-medium font-body text-charcoal">Dr. Kamal Hossain</div>
-          <div class="text-xs text-muted font-body">Managing Director, MediCore</div>
-        </div>
-      </div>
-      <div class="reveal" style="transition-delay:0.2s">
-        <div class="testimonial-card">
-          <p class="font-display font-light text-lg text-charcoal italic leading-relaxed mb-5">"The fundraising support was exceptional. They knew exactly how to position us and which levers to pull."</p>
-          <div class="text-sm font-medium font-body text-charcoal">Reza Ahmed</div>
-          <div class="text-xs text-muted font-body">CEO, AlphaFinance</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════
-     BOOKING
-═══════════════════════════════════ -->
-<section id="booking" class="py-28 lg:py-40 bg-charcoal relative overflow-hidden">
-
-  <!-- Decorative -->
-  <div class="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none" style="background: linear-gradient(to left, rgba(184,150,74,0.06), transparent);"></div>
-  <div class="absolute right-12 top-12 text-[200px] font-display font-light text-white opacity-[0.02] leading-none select-none pointer-events-none">B</div>
-
-  <div class="max-w-7xl mx-auto px-6 lg:px-12">
-    <div class="grid lg:grid-cols-2 gap-20 items-start">
-
-      <!-- Left -->
-      <div class="reveal-left">
-        <div class="section-label mb-4" style="color: rgba(184,150,74,0.8)">Consultancy Booking</div>
-        <div class="gold-line mb-8"></div>
-        <h2 class="font-display font-light text-4xl lg:text-5xl text-white leading-tight mb-6">
-          Let's Build Your<br/><em style="color: var(--gold)">Empire</em> Together.
-        </h2>
-        <p class="font-body text-sm leading-relaxed mb-10" style="color: rgba(255,255,255,0.5);">
-          Book a 30-minute strategy call with one of our senior advisors. No sales pitch — just a direct conversation about your business challenges and the best path forward.
-        </p>
-
-        <div class="space-y-6">
-          <div class="flex items-start gap-4">
-            <div class="w-8 h-8 border border-gold flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <!-- Contact & Social Media Section -->
+    <section id="contact" class="py-20 border-t border-slate-200 bg-light">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            
+            <!-- Contact Info -->
+            <div class="lg:col-span-2 space-y-6">
+                <a href="#home" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 bg-primary text-white flex items-center justify-center rounded-lg font-bold text-xl">N</div>
+                    <span class="font-bold text-lg tracking-tight">Niaz Empire</span>
+                </a>
+                <p class="text-secondary max-w-sm">
+                    Empowering businesses with strategic clarity and operational excellence. Reach out to discuss how we can build your empire together.
+                </p>
+                <div class="space-y-3 pt-2 text-secondary">
+                    <p class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-primary"></i> 100 Innovation Drive, Tech District, NY 10001</p>
+                    <p class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-primary"></i> contact@niazempire.com</p>
+                    <p class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-primary"></i> +1 (555) 123-4567</p>
+                </div>
             </div>
+
+            <!-- Quick Links -->
             <div>
-              <div class="text-white text-sm font-body font-medium mb-1">30-Minute Discovery Call</div>
-              <div class="text-sm font-body" style="color: rgba(255,255,255,0.45);">Deep dive into your situation with a senior advisor.</div>
+                <h4 class="font-semibold text-primary mb-6">Quick Links</h4>
+                <ul class="space-y-4">
+                    <li><a href="#about" class="text-secondary hover:text-accent transition-colors">About Us</a></li>
+                    <li><a href="#case-studies" class="text-secondary hover:text-accent transition-colors">Case Studies</a></li>
+                    <li><a href="#home" class="text-secondary hover:text-accent transition-colors">Services</a></li>
+                    <li><a href="#booking" class="text-secondary hover:text-accent transition-colors">Book a Call</a></li>
+                </ul>
             </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <div class="w-8 h-8 border border-gold flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
-            </div>
+
+            <!-- Social Media -->
             <div>
-              <div class="text-white text-sm font-body font-medium mb-1">No Obligation</div>
-              <div class="text-sm font-body" style="color: rgba(255,255,255,0.45);">Receive a personalized action plan regardless of next steps.</div>
+                <h4 class="font-semibold text-primary mb-6">Connect With Us</h4>
+                <div class="flex gap-4">
+                    <a href="#" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-secondary hover:text-accent hover:border-accent hover:shadow-md transition-all group">
+                        <i data-lucide="linkedin" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-secondary hover:text-accent hover:border-accent hover:shadow-md transition-all group">
+                        <i data-lucide="twitter" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-secondary hover:text-accent hover:border-accent hover:shadow-md transition-all group">
+                        <i data-lucide="instagram" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
             </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <div class="w-8 h-8 border border-gold flex items-center justify-center flex-shrink-0 mt-0.5">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div>
-              <div class="text-white text-sm font-body font-medium mb-1">Confidential & Secure</div>
-              <div class="text-sm font-body" style="color: rgba(255,255,255,0.45);">All information shared is protected under strict NDA.</div>
-            </div>
-          </div>
+            
         </div>
-      </div>
+    </section>
 
-      <!-- Right: Form -->
-      <div class="reveal bg-cream p-10">
-        <h3 class="font-display font-light text-2xl text-charcoal mb-8">Book Your Consultation</h3>
-
-        <form id="bookingForm" class="space-y-8" onsubmit="handleBooking(event)">
-          <div class="grid md:grid-cols-2 gap-8">
-            <div>
-              <label class="text-[10px] tracking-widest uppercase font-body text-muted block mb-2">First Name</label>
-              <input type="text" class="form-input" placeholder="Mohammad" required />
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-8">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
+            <p>&copy; <span id="year"></span> Niaz Empire Business Consultancy. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
             </div>
-            <div>
-              <label class="text-[10px] tracking-widest uppercase font-body text-muted block mb-2">Last Name</label>
-              <input type="text" class="form-input" placeholder="Niaz" required />
-            </div>
-          </div>
-          <div>
-            <label class="text-[10px] tracking-widest uppercase font-body text-muted block mb-2">Email Address</label>
-            <input type="email" class="form-input" placeholder="you@company.com" required />
-          </div>
-          <div>
-            <label class="text-[10px] tracking-widest uppercase font-body text-muted block mb-2">Company Name</label>
-            <input type="text" class="form-input" placeholder="Your Company Ltd." />
-          </div>
-          <div>
-            <label class="text-[10px] tracking-widest uppercase font-body text-muted block mb-2">Area of Interest</label>
-            <select class="form-input" style="appearance:none; cursor:pointer;">
-              <option value="" disabled selected>Select a focus area…</option>
-              <option>Strategic Planning</option>
-              <option>Financial Advisory</option>
-              <option>Market Expansion</option>
-              <option>Operations Excellence</option>
-              <option>Digital Transformation</option>
-              <option>Leadership & Culture</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-[10px] tracking-widest uppercase font-body text-muted block mb-2">Brief Overview</label>
-            <textarea class="form-input" rows="3" placeholder="Tell us about your business challenge…" style="resize:none; padding-top:8px;"></textarea>
-          </div>
-          <button type="submit" class="btn-gold w-full text-center"><span>Request Consultation →</span></button>
-        </form>
-
-        <!-- Success message -->
-        <div id="formSuccess" class="hidden text-center py-12">
-          <div class="w-12 h-12 border border-gold flex items-center justify-center mx-auto mb-4">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <h4 class="font-display font-light text-2xl text-charcoal mb-2">Request Received</h4>
-          <p class="font-body text-muted text-sm">We'll reach out within 24 hours to confirm your consultation time.</p>
         </div>
-      </div>
+    </footer>
 
-    </div>
-  </div>
-</section>
+    <!-- Interactive Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
 
+        // Set dynamic year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-<!-- ═══════════════════════════════════
-     SOCIAL / CONTACT
-═══════════════════════════════════ -->
-<section id="contact" class="py-24 bg-sand border-t border-border">
-  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('glass-nav', 'border-slate-200', 'shadow-sm');
+                navbar.classList.remove('border-transparent', 'py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('glass-nav', 'border-slate-200', 'shadow-sm', 'py-2');
+                navbar.classList.add('border-transparent', 'py-4');
+            }
+        });
 
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = menuBtn.querySelector('i');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-      <div class="reveal">
-        <div class="section-label mb-4">Connect With Us</div>
-        <div class="gold-line mb-6"></div>
-        <h2 class="font-display font-light text-4xl lg:text-5xl text-charcoal leading-tight mb-6">
-          Let's Start the<br/><em style="color:var(--gold)">Conversation</em>
-        </h2>
-        <p class="font-body text-muted text-base leading-relaxed max-w-md">
-          Whether you have a specific challenge in mind or simply want to explore possibilities, we're always open to meaningful conversations.
-        </p>
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.setAttribute('data-lucide', 'menu');
+            } else {
+                menuIcon.setAttribute('data-lucide', 'x');
+                // Ensure navbar background is solid when menu is open at the top
+                if (window.scrollY <= 20) {
+                     navbar.classList.add('bg-white', 'border-slate-200');
+                     navbar.classList.remove('border-transparent');
+                }
+            }
+            lucide.createIcons();
+        }
 
-        <div class="mt-10 space-y-4">
-          <div class="flex items-center gap-3">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <span class="font-body text-sm text-charcoal">contact@niazempire.com</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.91 8.9a16 16 0 006.29 6.29l1.26-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7a2 2 0 011.72 2.03z"/></svg>
-            <span class="font-body text-sm text-charcoal">+880 1700 000 000</span>
-          </div>
-          <div class="flex items-center gap-3">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span class="font-body text-sm text-charcoal">Gulshan-2, Dhaka 1212, Bangladesh</span>
-          </div>
-        </div>
-      </div>
+        menuBtn.addEventListener('click', toggleMenu);
 
-      <!-- Social icons -->
-      <div class="reveal" style="transition-delay:0.15s">
-        <div class="text-[10px] tracking-widest uppercase font-body text-muted mb-6">Follow Our Journey</div>
-        <div class="grid grid-cols-2 gap-4">
-
-          <!-- LinkedIn -->
-          <a href="#" class="flex items-center gap-4 p-5 bg-cream border border-border group hover:border-gold transition-colors duration-300">
-            <div class="w-10 h-10 border border-border group-hover:border-gold group-hover:bg-gold transition-all duration-300 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5" class="group-hover:stroke-white transition-colors duration-300"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            </div>
-            <div>
-              <div class="text-sm font-body font-medium text-charcoal">LinkedIn</div>
-              <div class="text-xs font-body text-muted">@NiazEmpire</div>
-            </div>
-          </a>
-
-          <!-- Facebook -->
-          <a href="#" class="flex items-center gap-4 p-5 bg-cream border border-border group hover:border-gold transition-colors duration-300">
-            <div class="w-10 h-10 border border-border group-hover:border-gold group-hover:bg-gold transition-all duration-300 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5" class="group-hover:stroke-white transition-colors duration-300"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-            </div>
-            <div>
-              <div class="text-sm font-body font-medium text-charcoal">Facebook</div>
-              <div class="text-xs font-body text-muted">Niaz Empire BC</div>
-            </div>
-          </a>
-
-          <!-- Twitter/X -->
-          <a href="#" class="flex items-center gap-4 p-5 bg-cream border border-border group hover:border-gold transition-colors duration-300">
-            <div class="w-10 h-10 border border-border group-hover:border-gold group-hover:bg-gold transition-all duration-300 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5" class="group-hover:stroke-white transition-colors duration-300"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
-            </div>
-            <div>
-              <div class="text-sm font-body font-medium text-charcoal">Twitter / X</div>
-              <div class="text-xs font-body text-muted">@NiazEmpireBD</div>
-            </div>
-          </a>
-
-          <!-- WhatsApp -->
-          <a href="#" class="flex items-center gap-4 p-5 bg-cream border border-border group hover:border-gold transition-colors duration-300">
-            <div class="w-10 h-10 border border-border group-hover:border-gold group-hover:bg-gold transition-all duration-300 flex items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B8964A" stroke-width="1.5" class="group-hover:stroke-white transition-colors duration-300"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
-            </div>
-            <div>
-              <div class="text-sm font-body font-medium text-charcoal">WhatsApp</div>
-              <div class="text-xs font-body text-muted">+880 1700 000 000</div>
-            </div>
-          </a>
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════
-     FOOTER
-═══════════════════════════════════ -->
-<footer class="bg-charcoal pt-20 pb-8">
-  <div class="max-w-7xl mx-auto px-6 lg:px-12">
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16 border-b border-white border-opacity-10">
-
-      <!-- Brand -->
-      <div class="lg:col-span-2">
-        <div class="flex items-center gap-3 mb-6">
-          <div class="logo-mark"><span>N</span></div>
-          <div>
-            <div class="font-display text-base font-semibold text-white tracking-wide">Niaz Empire</div>
-            <div class="text-[10px] tracking-widest2 uppercase text-muted font-body">Business Consultancy</div>
-          </div>
-        </div>
-        <p class="font-body text-sm leading-relaxed max-w-xs" style="color: rgba(255,255,255,0.4);">
-          Transforming ambitious businesses into enduring empires through strategic precision and relentless execution since 2018.
-        </p>
-        <div class="mt-8">
-          <div class="text-[10px] tracking-widest uppercase font-body mb-3" style="color:rgba(255,255,255,0.3)">Subscribe to Insights</div>
-          <div class="flex gap-0">
-            <input type="email" placeholder="your@email.com" class="bg-white bg-opacity-5 border border-white border-opacity-10 text-white text-sm font-body px-4 py-3 flex-1 outline-none placeholder-white placeholder-opacity-20 focus:border-gold transition-colors" />
-            <button class="btn-gold px-6 text-xs" style="padding-top:0;padding-bottom:0"><span>→</span></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Links 1 -->
-      <div>
-        <div class="text-[10px] tracking-widest uppercase font-body text-gold mb-6 opacity-70">Services</div>
-        <ul class="space-y-3">
-          <li><a href="#" class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">Strategic Planning</a></li>
-          <li><a href="#" class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">Financial Advisory</a></li>
-          <li><a href="#" class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">Market Expansion</a></li>
-          <li><a href="#" class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">Operations Excellence</a></li>
-          <li><a href="#" class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">Digital Transformation</a></li>
-        </ul>
-      </div>
-
-      <!-- Links 2 -->
-      <div>
-        <div class="text-[10px] tracking-widest uppercase font-body text-gold mb-6 opacity-70">Company</div>
-        <ul class="space-y-3">
-          <li><a href="#about"   class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">About Us</a></li>
-          <li><a href="#cases"   class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">Case Studies</a></li>
-          <li><a href="#trusted" class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">Our Clients</a></li>
-          <li><a href="#booking" class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">Book a Call</a></li>
-          <li><a href="#contact" class="text-sm font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.5);">Contact</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="flex flex-col md:flex-row items-center justify-between pt-8 gap-4">
-      <div class="text-[11px] font-body" style="color:rgba(255,255,255,0.25);">
-        © 2025 Niaz Empire Business Consultancy. All rights reserved.
-      </div>
-      <div class="flex gap-6">
-        <a href="#" class="text-[11px] font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.25);">Privacy Policy</a>
-        <a href="#" class="text-[11px] font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.25);">Terms of Service</a>
-        <a href="#" class="text-[11px] font-body hover:text-gold transition-colors" style="color:rgba(255,255,255,0.25);">Confidentiality</a>
-      </div>
-    </div>
-
-  </div>
-</footer>
-
-
-<!-- ═══════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════ -->
-<script>
-  // ── Navbar scroll ──
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  });
-
-  // ── Mobile menu ──
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const h1 = document.getElementById('h1');
-  const h2 = document.getElementById('h2');
-  const h3 = document.getElementById('h3');
-  let menuOpen = false;
-
-  hamburger.addEventListener('click', () => {
-    menuOpen = !menuOpen;
-    mobileMenu.classList.toggle('open', menuOpen);
-    h1.style.transform = menuOpen ? 'rotate(45deg) translate(4px, 3px)' : '';
-    h2.style.opacity   = menuOpen ? '0' : '1';
-    h3.style.transform = menuOpen ? 'rotate(-45deg) translate(4px, -3px)' : '';
-  });
-
-  function closeMobile() {
-    menuOpen = false;
-    mobileMenu.classList.remove('open');
-    h1.style.transform = h3.style.transform = '';
-    h2.style.opacity = '1';
-  }
-
-  // ── Scroll reveal ──
-  const revealEls = document.querySelectorAll('.reveal, .reveal-left');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), 0);
-      }
-    });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => observer.observe(el));
-
-  // ── Counter animation ──
-  const counters = document.querySelectorAll('.counter');
-  const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = +el.dataset.target;
-        const duration = 1600;
-        const step = target / (duration / 16);
-        let current = 0;
-        const timer = setInterval(() => {
-          current = Math.min(current + step, target);
-          el.textContent = Math.floor(current);
-          if (current >= target) clearInterval(timer);
-        }, 16);
-        counterObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(c => counterObserver.observe(c));
-
-  // ── Booking form ──
-  function handleBooking(e) {
-    e.preventDefault();
-    document.getElementById('bookingForm').classList.add('hidden');
-    document.getElementById('formSuccess').classList.remove('hidden');
-  }
-
-  // ── Active nav highlight on scroll ──
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 100) current = s.id;
-    });
-    navLinks.forEach(link => {
-      link.classList.remove('text-gold');
-      if (link.getAttribute('href') === '#' + current) link.classList.add('text-gold');
-    });
-  });
-</script>
+        // Close mobile menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
+
+```
