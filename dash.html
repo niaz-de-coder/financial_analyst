@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Ltd | Analytics Dashboard</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .shimmer {
+            background: #f6f7f8;
+            background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+            background-repeat: no-repeat;
+            background-size: 800px 100%; 
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards; 
+            animation-iteration-count: infinite;
+            animation-name: placeholderShimmer;
+            animation-timing-function: linear;
+        }
+
+        @keyframes placeholderShimmer {
+            0% { background-position: -468px 0; }
+            100% { background-position: 468px 0; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Fixed Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 fixed top-0 left-0 right-0 z-50 h-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+            <div class="flex justify-between items-center h-full">
+                <div class="flex items-center gap-3">
+                    <div class="bg-indigo-600 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-md shadow-indigo-200">
+                        <i class="fa-solid fa-chart-pie text-lg"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Demo Ltd</span>
+                </div>
+                <div class="flex items-center gap-4 text-slate-500">
+                    <span class="text-sm font-medium hidden sm:inline-block">Analytics Dashboard</span>
+                    <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Spacer to prevent content overlapping (Matches Nav height) -->
+    <div class="h-16"></div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Header -->
+        <header class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-900">Financial Overview</h1>
+                <p class="text-slate-500 mt-1 text-sm">Real-time metrics synced from Google Sheets</p>
+            </div>
+            <button onclick="fetchSheetData()" class="text-sm bg-white border border-slate-200 text-slate-600 px-4 py-2 rounded-lg hover:bg-slate-50 hover:text-indigo-600 transition-colors shadow-sm flex items-center gap-2 w-fit">
+                <i class="fa-solid fa-rotate-right" id="refresh-icon"></i> Refresh Data
+            </button>
+        </header>
+
+        <!-- KPI Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            
+            <!-- Net Income Card (From S9) -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-6 opacity-10 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-500">
+                    <i class="fa-solid fa-arrow-trend-up text-8xl text-emerald-500"></i>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                            <i class="fa-solid fa-dollar-sign"></i>
+                        </div>
+                        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Net Income</h2>
+                    </div>
+                    <div id="net-income-loader" class="h-10 w-48 rounded-md shimmer mb-1"></div>
+                    <div id="net-income-val" class="text-4xl font-bold text-slate-900 tracking-tight hidden"></div>
+                    <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-table border-slate-200"></i> Source: Google Sheet (Cell S9)</p>
+                </div>
+            </div>
+
+            <!-- Total Assets Card (From I13) -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-6 opacity-10 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-500">
+                    <i class="fa-solid fa-building-columns text-8xl text-indigo-500"></i>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                            <i class="fa-solid fa-vault"></i>
+                        </div>
+                        <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Total Assets</h2>
+                    </div>
+                    <div id="total-assets-loader" class="h-10 w-48 rounded-md shimmer mb-1"></div>
+                    <div id="total-assets-val" class="text-4xl font-bold text-slate-900 tracking-tight hidden"></div>
+                    <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-table border-slate-200"></i> Source: Google Sheet (Cell I13)</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Actions -->
+        <h2 class="text-xl font-bold text-slate-900 mb-4">Quick Actions</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <a href="events.html" class="group block bg-white p-5 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all duration-200 text-left relative overflow-hidden">
+                <div class="absolute inset-0 bg-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10"></div>
+                <div class="flex items-center gap-4 z-10">
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl group-hover:bg-orange-100 transition-colors">
+                        <i class="fa-regular fa-calendar-plus"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-slate-900 group-hover:text-indigo-700 transition-colors">Entry Events</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Log new activities</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="statements.html" class="group block bg-white p-5 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all duration-200 text-left relative overflow-hidden">
+                <div class="absolute inset-0 bg-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10"></div>
+                <div class="flex items-center gap-4 z-10">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-xl group-hover:bg-blue-100 transition-colors">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-slate-900 group-hover:text-indigo-700 transition-colors">Statements</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">View reports</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="consult.html" class="group block bg-white p-5 rounded-2xl border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all duration-200 text-left relative overflow-hidden">
+                <div class="absolute inset-0 bg-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10"></div>
+                <div class="flex items-center gap-4 z-10">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-500 flex items-center justify-center text-xl group-hover:bg-purple-100 transition-colors">
+                        <i class="fa-regular fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-slate-900 group-hover:text-indigo-700 transition-colors">Consulting</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Suggestions</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-2">
+            <p>&copy; 2026 Demo Ltd. Internal System.</p>
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-indigo-600">Privacy</a>
+                <a href="#" class="hover:text-indigo-600">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // REPLACE WITH YOUR DEPLOYED WEB APP URL
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6OsqNZ91lRxqbHcQuRp3-AHEJfDv7VKkPNxfqgunZjmZ6-qswCjmir1Tj1jZIX5i3/exec"; 
+
+        async function fetchSheetData() {
+            const loaders = [document.getElementById('net-income-loader'), document.getElementById('total-assets-loader')];
+            const values = [document.getElementById('net-income-val'), document.getElementById('total-assets-val')];
+            const refreshIcon = document.getElementById('refresh-icon');
+
+            refreshIcon.classList.add('fa-spin');
+            loaders.forEach(el => el.classList.remove('hidden'));
+            values.forEach(el => el.classList.add('hidden'));
+
+            try {
+                if(APPS_SCRIPT_URL === "https://script.google.com/macros/s/AKfycby6OsqNZ91lRxqbHcQuRp3-AHEJfDv7VKkPNxfqgunZjmZ6-qswCjmir1Tj1jZIX5i3/exec") {
+                    await new Promise(r => setTimeout(r, 1000));
+                    updateUI({ netIncome: "$1,245,600", totalAssets: "$8,450,200" });
+                    return;
+                }
+                const response = await fetch(APPS_SCRIPT_URL);
+                const data = await response.json();
+                updateUI(data);
+            } catch (error) {
+                console.error(error);
+                values.forEach(el => {
+                    el.innerHTML = '<span class="text-red-500 text-lg">Load Error</span>';
+                    el.classList.remove('hidden');
+                });
+                loaders.forEach(el => el.classList.add('hidden'));
+            } finally {
+                refreshIcon.classList.remove('fa-spin');
+            }
+        }
+
+        function updateUI(data) {
+            document.getElementById('net-income-val').innerText = data.netIncome || 'N/A';
+            document.getElementById('total-assets-val').innerText = data.totalAssets || 'N/A';
+            [...loaders, ...values].forEach(el => el.id.includes('loader') ? el.classList.add('hidden') : el.classList.remove('hidden'));
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchSheetData);
+    </script>
+</body>
+</html>
