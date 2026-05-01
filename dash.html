@@ -200,7 +200,8 @@
             values.forEach(el => el.classList.add('hidden'));
 
             try {
-                if(APPS_SCRIPT_URL === "https://script.google.com/macros/s/AKfycby6OsqNZ91lRxqbHcQuRp3-AHEJfDv7VKkPNxfqgunZjmZ6-qswCjmir1Tj1jZIX5i3/exec") {
+                // If it's the template URL, simulate mock data
+                if(APPS_SCRIPT_URL === "YOUR_WEB_APP_URL_HERE") {
                     await new Promise(r => setTimeout(r, 1000));
                     updateUI({ netIncome: "$1,245,600", totalAssets: "$8,450,200" });
                     return;
@@ -211,19 +212,26 @@
             } catch (error) {
                 console.error(error);
                 values.forEach(el => {
-                    el.innerHTML = '<span class="text-red-500 text-lg">Load Error</span>';
-                    el.classList.remove('hidden');
+                    if (el) {
+                        el.innerHTML = '<span class="text-red-500 text-lg">Load Error</span>';
+                        el.classList.remove('hidden');
+                    }
                 });
-                loaders.forEach(el => el.classList.add('hidden'));
+                loaders.forEach(el => el && el.classList.add('hidden'));
             } finally {
                 refreshIcon.classList.remove('fa-spin');
             }
         }
 
         function updateUI(data) {
+            const loaders = [document.getElementById('net-income-loader'), document.getElementById('total-assets-loader')];
+            const values = [document.getElementById('net-income-val'), document.getElementById('total-assets-val')];
+            
             document.getElementById('net-income-val').innerText = data.netIncome || 'N/A';
             document.getElementById('total-assets-val').innerText = data.totalAssets || 'N/A';
-            [...loaders, ...values].forEach(el => el.id.includes('loader') ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            
+            loaders.forEach(el => el && el.classList.add('hidden'));
+            values.forEach(el => el && el.classList.remove('hidden'));
         }
 
         document.addEventListener('DOMContentLoaded', fetchSheetData);
