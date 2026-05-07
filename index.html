@@ -1,424 +1,256 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Niaz Empire Business Consultancy</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter for a clean, modern look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#0f172a', // slate-900
-                        secondary: '#475569', // slate-600
-                        accent: '#2563eb', // blue-600
-                        light: '#f8fafc', // slate-50
-                    }
-                }
-            }
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Demo Company Ltd. | Niaz Empirez Business Consultancy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-    </script>
-    <style>
-        /* Custom styles for things Tailwind is too verbose for */
         body {
             font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Neumorphic / 3D UI Utility Classes */
+        .neu-flat {
+            background: #f7f9ff;
+            box-shadow: 12px 12px 24px #d1dbe7, -12px -12px 24px #ffffff;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        .neu-pressed {
+            background: #f7f9ff;
+            box-shadow: inset 8px 8px 16px #d1dbe7, inset -8px -8px 16px #ffffff;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
+        .neu-card {
+            background: #f7f9ff;
+            box-shadow: 10px 10px 20px #d1dbe7, -10px -10px 20px #ffffff;
+            transition: all 0.3s ease;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+        .neu-card:hover {
+            box-shadow: 4px 4px 8px #d1dbe7, -4px -4px 8px #ffffff;
+            transform: translateY(2px);
         }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        .neu-button {
+            background: #5c5f61;
+            box-shadow: 6px 6px 12px #d1dbe7, -6px -6px 12px #ffffff;
+            transition: all 0.2s ease;
+        }
+        .neu-button:active {
+            box-shadow: inset 4px 4px 8px rgba(0,0,0,0.2);
+            transform: scale(0.98);
+        }
+        .text-shadow-3d {
+            text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
         }
     </style>
-</head>
-<body class="bg-light text-primary flex flex-col min-h-screen relative">
-
-    <!-- Fixed Navigation -->
-    <nav id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 border-b border-transparent py-4">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <!-- Logo -->
-            <a href="#home" class="flex items-center gap-2 group">
-                <div class="w-8 h-8 bg-primary text-white flex items-center justify-center rounded-lg font-bold text-xl group-hover:bg-accent transition-colors">
-                    N
-                </div>
-                <span class="font-bold text-lg tracking-tight">Niaz Empire</span>
-            </a>
-
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
-                <a href="#home" class="text-secondary hover:text-primary transition-colors">Home</a>
-                <a href="#about" class="text-secondary hover:text-primary transition-colors">About</a>
-                <a href="#case-studies" class="text-secondary hover:text-primary transition-colors">Case Studies</a>
-                <a href="#contact" class="text-secondary hover:text-primary transition-colors">Contact</a>
-                <a href="#booking" class="bg-primary text-white px-5 py-2.5 rounded-full hover:bg-accent transition-colors shadow-sm">
-                    Book Consultation
-                </a>
-            </div>
-
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="md:hidden text-primary p-2 focus:outline-none">
-                <i data-lucide="menu"></i>
-            </button>
-        </div>
-
-        <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-lg py-4 px-6 flex-col space-y-4 md:hidden">
-            <a href="#home" class="text-secondary hover:text-primary transition-colors font-medium mobile-link">Home</a>
-            <a href="#about" class="text-secondary hover:text-primary transition-colors font-medium mobile-link">About</a>
-            <a href="#case-studies" class="text-secondary hover:text-primary transition-colors font-medium mobile-link">Case Studies</a>
-            <a href="#contact" class="text-secondary hover:text-primary transition-colors font-medium mobile-link">Contact</a>
-            <a href="#booking" class="bg-primary text-white px-5 py-3 rounded-xl text-center hover:bg-accent transition-colors mobile-link">
-                Book Consultation
-            </a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex-grow flex items-center">
-        <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-sm font-medium text-secondary">
-                    <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                    Transforming Businesses Globally
-                </div>
-                <h1 class="text-5xl lg:text-7xl font-bold tracking-tighter leading-[1.1]">
-                    Architects of your <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Empire.</span>
-                </h1>
-                <p class="text-lg md:text-xl text-secondary max-w-xl leading-relaxed">
-                    Niaz Empire Business Consultancy provides strategic insights and actionable frameworks to scale your operations, optimize revenue, and dominate your market.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                    <a href="#booking" class="bg-primary text-white px-8 py-4 rounded-full font-medium hover:bg-accent transition-colors shadow-lg shadow-slate-200 flex items-center justify-center gap-2 group">
-                        Start Your Journey
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#case-studies" class="px-8 py-4 rounded-full font-medium text-primary bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors flex items-center justify-center">
-                        View Our Work
-                    </a>
-                </div>
-            </div>
-            
-            <div class="relative hidden lg:block">
-                <!-- Abstract minimalist composition -->
-                <div class="absolute inset-0 bg-gradient-to-tr from-slate-100 to-white rounded-[2.5rem] transform rotate-3 scale-105 border border-slate-100"></div>
-                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Consultancy Team" class="relative z-10 rounded-[2.5rem] shadow-2xl object-cover h-[600px] w-full border border-white/50">
-                
-                <!-- Floating stat card -->
-                <div class="absolute -bottom-6 -left-6 z-20 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-4">
-                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600">
-                        <i data-lucide="trending-up"></i>
-                    </div>
-                    <div>
-                        <p class="text-3xl font-bold">250%</p>
-                        <p class="text-sm text-secondary font-medium">Average ROI</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Trusted Users Section -->
-    <section class="py-12 border-y border-slate-200 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <p class="text-center text-sm font-semibold text-slate-400 uppercase tracking-wider mb-8">Trusted by visionary enterprises</p>
-            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                <!-- Placeholder Logos using simple typography for minimalism -->
-                <div class="text-2xl font-black tracking-tighter text-slate-800">AcmeCorp.</div>
-                <div class="text-xl font-bold font-serif italic text-slate-800">Globex</div>
-                <div class="text-2xl font-bold uppercase tracking-widest text-slate-800">Initech</div>
-                <div class="text-xl font-medium tracking-tight text-slate-800">Umbrella Corp</div>
-                <div class="text-2xl font-bold text-slate-800 flex items-center gap-1"><i data-lucide="hexagon" class="w-6 h-6"></i> Soylent</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-24 max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Strategic Planning" class="rounded-3xl shadow-lg object-cover h-[500px] w-full">
-            </div>
-            <div class="space-y-6">
-                <h2 class="text-sm font-semibold text-accent uppercase tracking-wider">About Niaz Empire</h2>
-                <h3 class="text-3xl md:text-4xl font-bold tracking-tight">We don't just advise. We build alongside you.</h3>
-                <p class="text-secondary leading-relaxed">
-                    Founded on the principle that true growth requires both visionary strategy and meticulous execution, Niaz Empire has spent the last decade turning ambitious startups into industry stalwarts and helping established firms navigate digital transformation.
-                </p>
-                <p class="text-secondary leading-relaxed">
-                    Our approach is minimalist: strip away the noise, identify the core levers of growth, and execute with precision. No fluff, just results.
-                </p>
-                
-                <div class="grid grid-cols-2 gap-6 pt-6">
-                    <div class="border-l-2 border-slate-200 pl-4">
-                        <p class="text-3xl font-bold text-primary">10+</p>
-                        <p class="text-sm text-secondary mt-1">Years Experience</p>
-                    </div>
-                    <div class="border-l-2 border-slate-200 pl-4">
-                        <p class="text-3xl font-bold text-primary">$2B+</p>
-                        <p class="text-sm text-secondary mt-1">Client Revenue Generated</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Case Studies Section -->
-    <section id="case-studies" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div class="max-w-2xl">
-                    <h2 class="text-sm font-semibold text-accent uppercase tracking-wider mb-2">Our Work</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold tracking-tight">Proven methodologies.<br>Tangible results.</h3>
-                </div>
-                <a href="#" class="inline-flex items-center gap-2 text-primary font-medium hover:text-accent transition-colors group">
-                    View all projects <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Case Study 1 -->
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-2xl mb-6 relative">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Fintech Scaling" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <p class="text-sm text-secondary mb-2">Fintech • Market Expansion</p>
-                    <h4 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors">Scaling a regional payment processor globally</h4>
-                    <p class="text-secondary text-sm line-clamp-2">Developed a phased market entry strategy that resulted in successful expansion into 3 new continents within 18 months.</p>
-                </div>
-
-                <!-- Case Study 2 -->
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-2xl mb-6 relative">
-                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Supply Chain Optimization" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <p class="text-sm text-secondary mb-2">Logistics • Operational Efficiency</p>
-                    <h4 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors">Optimizing global supply chain networks</h4>
-                    <p class="text-secondary text-sm line-clamp-2">Implemented AI-driven forecasting models reducing inventory overhead by 34% while improving delivery times.</p>
-                </div>
-
-                <!-- Case Study 3 -->
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden rounded-2xl mb-6 relative">
-                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Brand Restructuring" class="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <p class="text-sm text-secondary mb-2">Retail • Digital Transformation</p>
-                    <h4 class="text-xl font-bold mb-3 group-hover:text-accent transition-colors">Legacy retail brand digital turnaround</h4>
-                    <p class="text-secondary text-sm line-clamp-2">Spearheaded a complete digital overhaul, shifting revenue from 90% physical to 60% e-commerce in two years.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Booking Section -->
-    <section id="booking" class="py-24 max-w-7xl mx-auto px-6 relative">
-        <div class="absolute inset-0 bg-slate-900 rounded-[3rem] -z-10 transform scale-[0.98] md:scale-100 hidden md:block"></div>
-        <div class="bg-white rounded-[3rem] md:rounded-[2.5rem] shadow-2xl p-8 md:p-16 border border-slate-100">
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
-                
-                <div class="lg:col-span-2 space-y-6">
-                    <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Ready to build your empire?</h2>
-                    <p class="text-secondary leading-relaxed">
-                        Book a free 30-minute discovery call. We'll discuss your current bottlenecks and explore how our frameworks can accelerate your growth.
-                    </p>
-                    
-                    <div class="space-y-4 pt-6">
-                        <div class="flex items-center gap-4 text-secondary">
-                            <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
-                                <i data-lucide="check" class="w-5 h-5 text-accent"></i>
-                            </div>
-                            <span>No obligation strategy session</span>
-                        </div>
-                        <div class="flex items-center gap-4 text-secondary">
-                            <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
-                                <i data-lucide="check" class="w-5 h-5 text-accent"></i>
-                            </div>
-                            <span>Customized preliminary roadmap</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-3">
-                    <form onsubmit="event.preventDefault(); alert('Booking request submitted. A representative will contact you shortly.');" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label for="name" class="text-sm font-medium text-primary">Full Name</label>
-                                <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all placeholder:text-slate-400" placeholder="John Doe">
-                            </div>
-                            <div class="space-y-2">
-                                <label for="email" class="text-sm font-medium text-primary">Work Email</label>
-                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all placeholder:text-slate-400" placeholder="john@company.com">
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <label for="service" class="text-sm font-medium text-primary">Area of Interest</label>
-                            <select id="service" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all text-primary appearance-none cursor-pointer">
-                                <option value="" disabled selected>Select a consultancy focus...</option>
-                                <option value="strategy">Business Strategy & Scaling</option>
-                                <option value="operations">Operational Efficiency</option>
-                                <option value="digital">Digital Transformation</option>
-                                <option value="financial">Financial Restructuring</option>
-                            </select>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label for="message" class="text-sm font-medium text-primary">Briefly describe your current challenge</label>
-                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all placeholder:text-slate-400 resize-none" placeholder="We are looking to scale our operations into..."></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full bg-primary text-white py-4 rounded-xl font-medium hover:bg-accent transition-colors shadow-md flex items-center justify-center gap-2">
-                            Request Consultation <i data-lucide="calendar" class="w-4 h-4"></i>
-                        </button>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact & Social Media Section -->
-    <section id="contact" class="py-20 border-t border-slate-200 bg-light">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            
-            <!-- Contact Info -->
-            <div class="lg:col-span-2 space-y-6">
-                <a href="#home" class="flex items-center gap-2 group">
-                    <div class="w-8 h-8 bg-primary text-white flex items-center justify-center rounded-lg font-bold text-xl">N</div>
-                    <span class="font-bold text-lg tracking-tight">Niaz Empire</span>
-                </a>
-                <p class="text-secondary max-w-sm">
-                    Empowering businesses with strategic clarity and operational excellence. Reach out to discuss how we can build your empire together.
-                </p>
-                <div class="space-y-3 pt-2 text-secondary">
-                    <p class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-primary"></i> 100 Innovation Drive, Tech District, NY 10001</p>
-                    <p class="flex items-center gap-3"><i data-lucide="mail" class="w-5 h-5 text-primary"></i> contact@niazempire.com</p>
-                    <p class="flex items-center gap-3"><i data-lucide="phone" class="w-5 h-5 text-primary"></i> +1 (555) 123-4567</p>
-                </div>
-            </div>
-
-            <!-- Quick Links -->
-            <div>
-                <h4 class="font-semibold text-primary mb-6">Quick Links</h4>
-                <ul class="space-y-4">
-                    <li><a href="#about" class="text-secondary hover:text-accent transition-colors">About Us</a></li>
-                    <li><a href="#case-studies" class="text-secondary hover:text-accent transition-colors">Case Studies</a></li>
-                    <li><a href="#home" class="text-secondary hover:text-accent transition-colors">Services</a></li>
-                    <li><a href="#booking" class="text-secondary hover:text-accent transition-colors">Book a Call</a></li>
-                </ul>
-            </div>
-
-            <!-- Social Media -->
-            <div>
-                <h4 class="font-semibold text-primary mb-6">Connect With Us</h4>
-                <div class="flex gap-4">
-                    <a href="#" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-secondary hover:text-accent hover:border-accent hover:shadow-md transition-all group">
-                        <i data-lucide="linkedin" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
-                    </a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-secondary hover:text-accent hover:border-accent hover:shadow-md transition-all group">
-                        <i data-lucide="twitter" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
-                    </a>
-                    <a href="#" class="w-12 h-12 rounded-full bg-white border border-slate-200 flex items-center justify-center text-secondary hover:text-accent hover:border-accent hover:shadow-md transition-all group">
-                        <i data-lucide="instagram" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
-                    </a>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-primary text-white py-8">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
-            <p>&copy; <span id="year"></span> Niaz Empire Business Consultancy. All rights reserved.</p>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Interactive Scripts -->
-    <script>
-        // Initialize Icons
-        lucide.createIcons();
-
-        // Set dynamic year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Navbar Scroll Effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 20) {
-                navbar.classList.add('glass-nav', 'border-slate-200', 'shadow-sm');
-                navbar.classList.remove('border-transparent', 'py-4');
-                navbar.classList.add('py-2');
-            } else {
-                navbar.classList.remove('glass-nav', 'border-slate-200', 'shadow-sm', 'py-2');
-                navbar.classList.add('border-transparent', 'py-4');
-            }
-        });
-
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = menuBtn.querySelector('i');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        function toggleMenu() {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
-            
-            if (mobileMenu.classList.contains('hidden')) {
-                menuIcon.setAttribute('data-lucide', 'menu');
-            } else {
-                menuIcon.setAttribute('data-lucide', 'x');
-                // Ensure navbar background is solid when menu is open at the top
-                if (window.scrollY <= 20) {
-                     navbar.classList.add('bg-white', 'border-slate-200');
-                     navbar.classList.remove('border-transparent');
-                }
-            }
-            lucide.createIcons();
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "surface-tint": "#5c5f61",
+                      "inverse-primary": "#c4c7ca",
+                      "inverse-on-surface": "#e8f2fe",
+                      "outline": "#74777a",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#44474a",
+                      "surface-container-low": "#ecf4ff",
+                      "on-secondary": "#ffffff",
+                      "surface": "#f7f9ff",
+                      "secondary": "#505f76",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#dae3f0",
+                      "outline-variant": "#c4c7c9",
+                      "primary-container": "#f0f2f5",
+                      "surface-container": "#e5effb",
+                      "surface-variant": "#dae3f0",
+                      "surface-dim": "#d1dbe7",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "on-error-container": "#93000a",
+                      "primary": "#5c5f61",
+                      "secondary-container": "#d0e1fb",
+                      "secondary-fixed": "#d3e4fe",
+                      "on-surface": "#131d25",
+                      "surface-bright": "#f7f9ff",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "on-tertiary": "#ffffff",
+                      "background": "#f7f9ff",
+                      "on-background": "#131d25",
+                      "inverse-surface": "#28313b",
+                      "on-primary-container": "#6b6e71",
+                      "tertiary-container": "#f2f2f2",
+                      "on-primary-fixed": "#191c1e",
+                      "on-secondary-fixed-variant": "#38485d",
+                      "surface-container-high": "#dfe9f5",
+                      "primary-fixed-dim": "#c4c7ca",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#44474a",
+                      "tertiary": "#5d5f5f",
+                      "primary-fixed": "#e0e3e6",
+                      "tertiary-fixed": "#e2e2e2",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "on-tertiary-container": "#6d6e6e",
+                      "on-secondary-container": "#54647a",
+                      "on-secondary-fixed": "#0b1c30"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.5rem",
+                      "lg": "1rem",
+                      "xl": "1.5rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "12px",
+                      "stack-lg": "48px",
+                      "gutter": "24px",
+                      "stack-md": "24px",
+                      "unit": "8px",
+                      "container-padding": "32px",
+                      "section-gap": "80px",
+                      "margin-safe": "32px",
+                      "container-max": "1024px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-base": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "label-sm": ["13px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-base": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}]
+              }
+            },
+          },
         }
-
-        menuBtn.addEventListener('click', toggleMenu);
-
-        // Close mobile menu when a link is clicked
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    toggleMenu();
-                }
-            });
-        });
     </script>
-</body>
-</html>
-
-```
+</head>
+<body class="bg-background text-on-background selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<main class="min-h-screen flex flex-col items-center">
+<!-- Hero Anchor Section -->
+<section class="w-full max-w-container-max px-margin-safe py-section-gap flex flex-col items-center text-center mt-20">
+<div class="mb-gutter">
+<span class="font-label-sm text-label-sm text-secondary tracking-[0.2em] uppercase mb-6 block bg-surface-container-high/50 px-4 py-2 rounded-full inline-block shadow-sm">Niaz Empirez Business Consultancy</span>
+<h1 class="font-display-lg text-display-lg text-primary mb-8 max-w-2xl mx-auto tracking-tight">Demo Company Ltd.</h1>
+<p class="font-body-base text-body-base text-on-surface-variant max-w-xl mx-auto mb-12 leading-relaxed">
+                Let us know every events of your business to track your profit maximizing
+            </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a class="neu-button inline-flex items-center justify-center px-12 py-5 text-on-primary font-label-sm text-label-sm rounded-full uppercase tracking-wider hover:opacity-95 transition-all shadow-lg active:scale-95" href="eventsform.html">
+                    Business Events Entries
+                </a>
+</div>
+</div>
+<!-- Hero Image / Visual Element -->
+<div class="w-full mt-section-gap aspect-[21/9] overflow-hidden rounded-xl shadow-2xl border-4 border-surface-container-lowest relative group">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim/20 to-transparent pointer-events-none"></div>
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A clean, minimalist high-angle shot of a bright modern office space with white marble desks and thin black metal accents. The lighting is diffused and professional, casting soft shadows across organized stationery and high-end tech devices. The color palette is strictly neutral with shades of slate gray and pristine white, reflecting a corporate minimalism aesthetic for a business consultancy environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3DcunI2pyFMunca5EWvt46tO2CYJv7LKqB9tviP3Jw6vSjHULhLwQAmuxgLNqnGmrrlFVgSpRqkPaIgWzvtLC0LykZaiLMxXigQeVm-bohyjAG4C704XjxwUexbAda_WEAzRi-Gaiq9vpkRw5s-yIFiDQ6oHxXLo7WD5U3HFs6XvgpXQPT5384XUT7WC9NeutxOmD7_DdlcZotK8tONLTXYTP1-A1MM-GWyYCk_4etuqXbBl5sj6OcZD5ZD6HKrKvQCmHqhB9"/>
+</div>
+</section>
+<!-- Department Navigation Section -->
+<section class="w-full bg-surface-container-low py-section-gap">
+<div class="max-w-container-max mx-auto px-margin-safe">
+<div class="flex flex-col items-center mb-12">
+<h2 class="font-headline-md text-headline-md text-primary text-center">Let's get into your business departments</h2>
+<div class="h-1.5 w-20 bg-primary/10 rounded-full mt-4"></div>
+</div>
+<!-- Department Neumorphic Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md w-full">
+<!-- Management -->
+<a class="neu-card group flex flex-col justify-between p-10 rounded-xl" href="mangement.html">
+<div>
+<div class="w-16 h-16 neu-pressed rounded-2xl flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined text-4xl">account_tree</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Management Department</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Oversee strategic operations, organizational structure, and executive leadership workflows.</p>
+</div>
+<div class="mt-10 flex items-center text-primary font-label-sm text-label-sm group-hover:pl-2 transition-all duration-300">
+<span class="uppercase tracking-widest">Explore Department</span>
+<span class="material-symbols-outlined ml-3 text-lg">arrow_forward</span>
+</div>
+</a>
+<!-- Marketing -->
+<a class="neu-card group flex flex-col justify-between p-10 rounded-xl" href="marketing.html">
+<div>
+<div class="w-16 h-16 neu-pressed rounded-2xl flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined text-4xl">campaign</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Marketing Department</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Track campaign performance, market penetration, and brand engagement metrics.</p>
+</div>
+<div class="mt-10 flex items-center text-primary font-label-sm text-label-sm group-hover:pl-2 transition-all duration-300">
+<span class="uppercase tracking-widest">Explore Department</span>
+<span class="material-symbols-outlined ml-3 text-lg">arrow_forward</span>
+</div>
+</a>
+<!-- Finance -->
+<a class="neu-card group flex flex-col justify-between p-10 rounded-xl" href="finance.html">
+<div>
+<div class="w-16 h-16 neu-pressed rounded-2xl flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined text-4xl">payments</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Finance Department</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Monitor capital allocation, investment strategies, and financial health indicators.</p>
+</div>
+<div class="mt-10 flex items-center text-primary font-label-sm text-label-sm group-hover:pl-2 transition-all duration-300">
+<span class="uppercase tracking-widest">Explore Department</span>
+<span class="material-symbols-outlined ml-3 text-lg">arrow_forward</span>
+</div>
+</a>
+<!-- Accounting -->
+<a class="neu-card group flex flex-col justify-between p-10 rounded-xl" href="accounting.html">
+<div>
+<div class="w-16 h-16 neu-pressed rounded-2xl flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined text-4xl">account_balance_wallet</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Accounting Department</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Manage ledgers, audits, tax compliance, and detailed profit/loss tracking.</p>
+</div>
+<div class="mt-10 flex items-center text-primary font-label-sm text-label-sm group-hover:pl-2 transition-all duration-300">
+<span class="uppercase tracking-widest">Explore Department</span>
+<span class="material-symbols-outlined ml-3 text-lg">arrow_forward</span>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- Final Trust Section -->
+<section class="w-full max-w-container-max px-margin-safe py-section-gap flex flex-col items-center text-center">
+<div class="p-12 neu-flat rounded-2xl max-w-3xl w-full border border-white/50">
+<h2 class="font-headline-md text-headline-md text-primary mb-6">The Trusted Advisor</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mb-10 leading-relaxed italic">
+                "Niaz Empirez Business Consultancy provides the intelligent framework for your professional growth. By centralizing your events and data, we transform complex decisions into manageable strategic outcomes."
+            </p>
+<div class="h-1 w-16 bg-primary/20 mx-auto rounded-full"></div>
+</div>
+</section>
+</main>
+<footer class="bg-surface-container-lowest border-t border-outline-variant/30 py-16 w-full mt-auto">
+<div class="max-w-[1024px] mx-auto px-margin-safe flex flex-col md:flex-row justify-between items-center gap-gutter">
+<div class="flex flex-col gap-3 text-center md:text-left">
+<span class="text-label-sm font-label-sm tracking-widest text-primary uppercase font-bold">Demo Company Ltd.</span>
+<p class="font-body-base text-sm text-on-surface-variant opacity-80">
+                © 2024 Demo Company Ltd. A Niaz Empirez Business Consultancy.
+            </p>
+</div>
+<nav class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+<a class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider" href="mangement.html">Management</a>
+<a class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider" href="marketing.html">Marketing</a>
+<a class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider" href="finance.html">Finance</a>
+<a class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider" href="accounting.html">Accounting</a>
+<a class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider" href="#">Privacy</a>
+<a class="font-label-sm text-xs text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider" href="#">Contact</a>
+</nav>
+</div>
+</footer>
+</body></html>
