@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Accounting Dashboard | Demo Company Ltd.</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Inter', sans-serif; background: #f7f9ff; }
+        .neu-flat { background: #f7f9ff; box-shadow: 12px 12px 24px #d1dbe7, -12px -12px 24px #ffffff; }
+        .neu-card { background: #f7f9ff; box-shadow: 8px 8px 16px #d1dbe7, -8px -8px 16px #ffffff; transition: all 0.3s ease; }
+        .neu-pressed { background: #f7f9ff; box-shadow: inset 6px 6px 12px #d1dbe7, inset -6px -6px 12px #ffffff; }
+        .neu-button { background: #5c5f61; box-shadow: 4px 4px 10px #d1dbe7, -4px -4px 10px #ffffff; transition: all 0.2s ease; }
+        .neu-button:active { transform: scale(0.98); box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2); }
+        .loading-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
+</head>
+<body class="text-on-background min-h-screen p-6 md:p-12">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header & Back Navigation -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+            <a href="index.html" class="neu-card px-6 py-3 rounded-full flex items-center gap-2 text-primary font-bold hover:bg-surface-container-low transition-colors">
+                <span class="material-symbols-outlined">arrow_back</span> Back to Home
+            </a>
+            <div class="text-center md:text-right">
+                <h1 class="text-3xl font-bold text-primary">Demo Company Ltd.</h1>
+                <p class="text-secondary font-medium uppercase tracking-widest text-sm">Accounting Department Dashboard</p>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div id="dashboard-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <!-- Data will be injected here via JS -->
+            <div class="col-span-full py-20 text-center loading-pulse text-secondary">
+                <span class="material-symbols-outlined text-5xl mb-4">sync</span>
+                <p class="font-bold tracking-widest uppercase">Fetching Financial Data...</p>
+            </div>
+        </div>
+
+        <!-- Document Links Section -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <a href="balance-sheet.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">account_balance</span>
+                <span class="font-bold text-secondary uppercase text-xs tracking-tighter">Balance Sheet</span>
+            </a>
+            <a href="income-statement.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">receipt_long</span>
+                <span class="font-bold text-secondary uppercase text-xs tracking-tighter">Income Statement</span>
+            </a>
+            <a href="trial-balance.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">checklist_rtl</span>
+                <span class="font-bold text-secondary uppercase text-xs tracking-tighter">Trial Balance</span>
+            </a>
+            <a href="management-accounting.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group">
+                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">query_stats</span>
+                <span class="font-bold text-secondary uppercase text-xs tracking-tighter">Management Accounting</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzVI5nEBzp_2GXsLlJp7SxjC5DFufsj_Cf0v3unLPkE-czERGF3GiOZv3CTBtSea5r_/exec';
+
+        async function fetchAccountingData() {
+            try {
+                const response = await fetch(scriptURL);
+                const data = await response.json();
+                renderDashboard(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('dashboard-content').innerHTML = `
+                    <div class="col-span-full p-8 text-red-500 text-center font-bold">
+                        Failed to connect to Google Sheets. Please check your AppScript deployment.
+                    </div>
+                `;
+            }
+        }
+
+        function renderDashboard(data) {
+            const container = document.getElementById('dashboard-content');
+            
+            // Define categories for better organization
+            const sections = [
+                { title: 'Performance', items: [
+                    { label: 'Revenue', val: data.revenue, icon: 'trending_up' },
+                    { label: 'Expense', val: data.expense, icon: 'trending_down' },
+                    { label: 'Income', val: data.income, icon: 'payments' },
+                    { label: 'Dividend', val: data.dividend, icon: 'redeem' },
+                    { label: 'Retained Earnings', val: data.retainedEarnings, icon: 'savings' }
+                ]},
+                { title: 'Assets', items: [
+                    { label: 'Current Assets', val: data.currentAssets, icon: 'account_balance_wallet' },
+                    { label: 'Fixed Assets', val: data.fixedAssets, icon: 'apartment' },
+                    { label: 'Total Assets', val: data.assets, icon: 'assured_workload', highlight: true }
+                ]},
+                { title: 'Liabilities & Equity', items: [
+                    { label: 'Current Liabilities', val: data.currentLiabilities, icon: 'credit_card_off' },
+                    { label: 'Long Term Liabilities', val: data.longTermLiabilities, icon: 'history_edu' },
+                    { label: 'Total Liabilities', val: data.liabilities, icon: 'list_alt' },
+                    { label: 'Share Capital', val: data.shareCapital, icon: 'token' },
+                    { label: "Owner's Equity", val: data.ownersEquity, icon: 'person_outline' },
+                    { label: 'Liab + Equity', val: data.liabilitiesOwnersEquity, icon: 'balance', highlight: true }
+                ]},
+                { title: 'Ratios', items: [
+                    { label: 'Current Ratio', val: data.currentRatio, icon: 'ratio' },
+                    { label: 'Quick Ratio', val: data.quickRatio, icon: 'speed' },
+                    { label: 'Net Profit Margin', val: data.netProfitMargin, icon: 'percent' },
+                    { label: 'ROE', val: data.roe, icon: 'show_chart' },
+                    { label: 'Debt to Equity', val: data.debtToEquity, icon: 'troubleshoot' },
+                    { label: 'Interest Coverage', val: data.interestCoverage, icon: 'verified_user' }
+                ]}
+            ];
+
+            let html = '';
+            sections.forEach(section => {
+                section.items.forEach(item => {
+                    html += `
+                        <div class="neu-card p-6 rounded-2xl flex flex-col justify-between ${item.highlight ? 'ring-2 ring-primary/10' : ''}">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="material-symbols-outlined text-primary/60">${item.icon}</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-secondary/50">Accounting Data</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xs font-bold text-secondary uppercase mb-1">${item.label}</h3>
+                                <p class="text-2xl font-bold text-primary truncate">${item.val || '0.00'}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+            container.innerHTML = html;
+        }
+
+        window.onload = fetchAccountingData;
+    </script>
+</body>
+</html>
