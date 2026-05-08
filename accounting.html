@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <style>
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        body { font-family: 'Inter', sans-serif; background: #f7f9ff; }
+        body { font-family: 'Inter', sans-serif; background: #f7f9ff; color: #131d25; }
         .neu-flat { background: #f7f9ff; box-shadow: 12px 12px 24px #d1dbe7, -12px -12px 24px #ffffff; }
         .neu-card { background: #f7f9ff; box-shadow: 8px 8px 16px #d1dbe7, -8px -8px 16px #ffffff; transition: all 0.3s ease; }
         .neu-pressed { background: #f7f9ff; box-shadow: inset 6px 6px 12px #d1dbe7, inset -6px -6px 12px #ffffff; }
@@ -19,51 +19,63 @@
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
     </style>
 </head>
-<body class="text-on-background min-h-screen p-6 md:p-12">
+<body class="min-h-screen p-6 md:p-12">
     <div class="max-w-7xl mx-auto">
         <!-- Header & Back Navigation -->
         <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-            <a href="index.html" class="neu-card px-6 py-3 rounded-full flex items-center gap-2 text-primary font-bold hover:bg-surface-container-low transition-colors">
+            <a href="index.html" class="neu-card px-6 py-3 rounded-full flex items-center gap-2 text-[#5c5f61] font-bold hover:scale-105 transition-transform">
                 <span class="material-symbols-outlined">arrow_back</span> Back to Home
             </a>
             <div class="text-center md:text-right">
-                <h1 class="text-3xl font-bold text-primary">Demo Company Ltd.</h1>
-                <p class="text-secondary font-medium uppercase tracking-widest text-sm">Accounting Department Dashboard</p>
+                <h1 class="text-3xl font-bold text-[#5c5f61]">Demo Company Ltd.</h1>
+                <p class="text-[#505f76] font-medium uppercase tracking-widest text-sm">Financial Accounting Dashboard</p>
             </div>
         </div>
 
         <!-- Dashboard Grid -->
         <div id="dashboard-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <!-- Data will be injected here via JS -->
-            <div class="col-span-full py-20 text-center loading-pulse text-secondary">
+            <div class="col-span-full py-20 text-center loading-pulse text-[#505f76]">
                 <span class="material-symbols-outlined text-5xl mb-4">sync</span>
                 <p class="font-bold tracking-widest uppercase">Fetching Financial Data...</p>
             </div>
         </div>
 
         <!-- Document Links Section -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <a href="balance-sheet.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group">
-                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">account_balance</span>
-                <span class="font-bold text-secondary uppercase text-xs tracking-tighter">Balance Sheet</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+            <a href="balance-sheet.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group hover:bg-[#dfe9f5]">
+                <span class="material-symbols-outlined text-[#5c5f61] text-3xl group-hover:scale-110 transition-transform">account_balance</span>
+                <span class="font-bold text-[#505f76] uppercase text-[10px] tracking-wider">Balance Sheet</span>
             </a>
-            <a href="income-statement.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group">
-                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">receipt_long</span>
-                <span class="font-bold text-secondary uppercase text-xs tracking-tighter">Income Statement</span>
+            <a href="income-statement.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group hover:bg-[#dfe9f5]">
+                <span class="material-symbols-outlined text-[#5c5f61] text-3xl group-hover:scale-110 transition-transform">receipt_long</span>
+                <span class="font-bold text-[#505f76] uppercase text-[10px] tracking-wider">Income Statement</span>
             </a>
-            <a href="trial-balance.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group">
-                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">checklist_rtl</span>
-                <span class="font-bold text-secondary uppercase text-xs tracking-tighter">Trial Balance</span>
+            <a href="trial-balance.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group hover:bg-[#dfe9f5]">
+                <span class="material-symbols-outlined text-[#5c5f61] text-3xl group-hover:scale-110 transition-transform">checklist_rtl</span>
+                <span class="font-bold text-[#505f76] uppercase text-[10px] tracking-wider">Trial Balance</span>
             </a>
-            <a href="management-accounting.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group">
-                <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">query_stats</span>
-                <span class="font-bold text-secondary uppercase text-xs tracking-tighter">Management Accounting</span>
+            <a href="management-accounting.html" class="neu-card p-6 rounded-2xl flex flex-col items-center gap-3 group hover:bg-[#dfe9f5]">
+                <span class="material-symbols-outlined text-[#5c5f61] text-3xl group-hover:scale-110 transition-transform">query_stats</span>
+                <span class="font-bold text-[#505f76] uppercase text-[10px] tracking-wider">Management Accounting</span>
+            </a>
+        </div>
+
+        <!-- Google Sheet External Access -->
+        <div class="mt-20 border-t border-[#d1dbe7] pt-12 text-center">
+            <p class="text-[#505f76] font-medium mb-6">You can get your google sheet here</p>
+            <a href="YOUR_GOOGLE_SHEET_URL_HERE" target="_blank" 
+                class="neu-flat inline-flex items-center gap-4 px-10 py-5 rounded-2xl text-[#5c5f61] font-bold hover:scale-105 transition-transform group">
+                <span class="material-symbols-outlined text-green-600 text-3xl group-hover:rotate-12 transition-transform">table_chart</span>
+                <div class="text-left">
+                    <span class="block text-xs uppercase tracking-widest text-[#505f76]/60">Excel Sheet Icon</span>
+                    <span class="text-lg">Demo Company Ltd. Google Sheet</span>
+                </div>
             </a>
         </div>
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzVI5nEBzp_2GXsLlJp7SxjC5DFufsj_Cf0v3unLPkE-czERGF3GiOZv3CTBtSea5r_/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyMlA6Wi7Dd80Dg08va6TOsWPCJ16SoXPBBYh_bK-xV7kHw0V4CAmh-4EWRqk14X9o/exec';
 
         async function fetchAccountingData() {
             try {
@@ -71,10 +83,10 @@
                 const data = await response.json();
                 renderDashboard(data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error:', error);
                 document.getElementById('dashboard-content').innerHTML = `
-                    <div class="col-span-full p-8 text-red-500 text-center font-bold">
-                        Failed to connect to Google Sheets. Please check your AppScript deployment.
+                    <div class="col-span-full p-8 text-red-500 text-center font-bold neu-card rounded-2xl">
+                        Connection Error. Please ensure the Apps Script is deployed as a Web App.
                     </div>
                 `;
             }
@@ -82,57 +94,41 @@
 
         function renderDashboard(data) {
             const container = document.getElementById('dashboard-content');
-            
-            // Define categories for better organization
-            const sections = [
-                { title: 'Performance', items: [
-                    { label: 'Revenue', val: data.revenue, icon: 'trending_up' },
-                    { label: 'Expense', val: data.expense, icon: 'trending_down' },
-                    { label: 'Income', val: data.income, icon: 'payments' },
-                    { label: 'Dividend', val: data.dividend, icon: 'redeem' },
-                    { label: 'Retained Earnings', val: data.retainedEarnings, icon: 'savings' }
-                ]},
-                { title: 'Assets', items: [
-                    { label: 'Current Assets', val: data.currentAssets, icon: 'account_balance_wallet' },
-                    { label: 'Fixed Assets', val: data.fixedAssets, icon: 'apartment' },
-                    { label: 'Total Assets', val: data.assets, icon: 'assured_workload', highlight: true }
-                ]},
-                { title: 'Liabilities & Equity', items: [
-                    { label: 'Current Liabilities', val: data.currentLiabilities, icon: 'credit_card_off' },
-                    { label: 'Long Term Liabilities', val: data.longTermLiabilities, icon: 'history_edu' },
-                    { label: 'Total Liabilities', val: data.liabilities, icon: 'list_alt' },
-                    { label: 'Share Capital', val: data.shareCapital, icon: 'token' },
-                    { label: "Owner's Equity", val: data.ownersEquity, icon: 'person_outline' },
-                    { label: 'Liab + Equity', val: data.liabilitiesOwnersEquity, icon: 'balance', highlight: true }
-                ]},
-                { title: 'Ratios', items: [
-                    { label: 'Current Ratio', val: data.currentRatio, icon: 'ratio' },
-                    { label: 'Quick Ratio', val: data.quickRatio, icon: 'speed' },
-                    { label: 'Net Profit Margin', val: data.netProfitMargin, icon: 'percent' },
-                    { label: 'ROE', val: data.roe, icon: 'show_chart' },
-                    { label: 'Debt to Equity', val: data.debtToEquity, icon: 'troubleshoot' },
-                    { label: 'Interest Coverage', val: data.interestCoverage, icon: 'verified_user' }
-                ]}
+            const metrics = [
+                { label: 'Revenue', val: data.revenue, icon: 'trending_up' },
+                { label: 'Expense', val: data.expense, icon: 'trending_down' },
+                { label: 'Income', val: data.income, icon: 'payments' },
+                { label: 'Dividend', val: data.dividend, icon: 'redeem' },
+                { label: 'Retained Earnings', val: data.retainedEarnings, icon: 'savings' },
+                { label: 'Current Assets', val: data.currentAssets, icon: 'account_balance_wallet' },
+                { label: 'Fixed Assets', val: data.fixedAssets, icon: 'apartment' },
+                { label: 'Assets', val: data.assets, icon: 'assured_workload', highlight: true },
+                { label: 'Current Liabilities', val: data.currentLiabilities, icon: 'credit_card_off' },
+                { label: 'Long Term Liabilities', val: data.longTermLiabilities, icon: 'history_edu' },
+                { label: 'Liabilities', val: data.liabilities, icon: 'list_alt' },
+                { label: 'Share Capital', val: data.shareCapital, icon: 'token' },
+                { label: "Owner's Equity", val: data.ownersEquity, icon: 'person_outline' },
+                { label: 'Liabilities+Owner\'s Equity', val: data.liabilitiesOwnersEquity, icon: 'balance', highlight: true },
+                { label: 'Current Ratio', val: data.currentRatio, icon: 'ratio' },
+                { label: 'Quick Ratio', val: data.quickRatio, icon: 'speed' },
+                { label: 'Net Profit Margin', val: data.netProfitMargin, icon: 'percent' },
+                { label: 'ROE', val: data.roe, icon: 'show_chart' },
+                { label: 'Debt to Equity', val: data.debtToEquity, icon: 'troubleshoot' },
+                { label: 'Interest Coverage', val: data.interestCoverage, icon: 'verified_user' }
             ];
 
-            let html = '';
-            sections.forEach(section => {
-                section.items.forEach(item => {
-                    html += `
-                        <div class="neu-card p-6 rounded-2xl flex flex-col justify-between ${item.highlight ? 'ring-2 ring-primary/10' : ''}">
-                            <div class="flex justify-between items-start mb-4">
-                                <span class="material-symbols-outlined text-primary/60">${item.icon}</span>
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-secondary/50">Accounting Data</span>
-                            </div>
-                            <div>
-                                <h3 class="text-xs font-bold text-secondary uppercase mb-1">${item.label}</h3>
-                                <p class="text-2xl font-bold text-primary truncate">${item.val || '0.00'}</p>
-                            </div>
-                        </div>
-                    `;
-                });
-            });
-            container.innerHTML = html;
+            container.innerHTML = metrics.map(item => `
+                <div class="neu-card p-6 rounded-2xl flex flex-col justify-between ${item.highlight ? 'bg-[#dfe9f5]' : ''}">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="material-symbols-outlined text-[#5c5f61]/60">${item.icon}</span>
+                        <span class="text-[9px] font-bold uppercase tracking-widest text-[#505f76]/40">Verified</span>
+                    </div>
+                    <div>
+                        <h3 class="text-[10px] font-bold text-[#505f76] uppercase mb-1">${item.label}</h3>
+                        <p class="text-xl font-bold text-[#5c5f61]">${item.val || '0.00'}</p>
+                    </div>
+                </div>
+            `).join('');
         }
 
         window.onload = fetchAccountingData;
